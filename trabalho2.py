@@ -1,6 +1,7 @@
 import random
 import math
 
+# Teste miller rabin para ver se o número é primo
 def millerRabin(d, n):
     a = 2 + random.randint(1, n - 4)
     x = pow(a, d, n)
@@ -17,7 +18,12 @@ def millerRabin(d, n):
     return False;
  
 
-def ePrimo(n, k):  
+def ePrimo(n, k): 
+    if (n <= 1 or n == 4):
+        return False;
+    if (n <= 3):
+        return True;
+    
     d = n - 1;
     while d % 2 == 0:
         d //= 2;
@@ -26,6 +32,7 @@ def ePrimo(n, k):
             return False;
     return True;
 
+# Gerador de chaves (P e Q com 1024 bits)
 def gerarChaves():
     primos = []
     for i in range(2):
@@ -51,8 +58,7 @@ def gerarChaves():
     
     return publicKey, privateKey
 
-
+# Cifrador/decifrador
 def cifradorDecifrador(texto, chave, n):
-    res = pow(texto, chave)
-    res = math.fmod(res, n)
+    res = pow(texto, chave, n)
     return res
